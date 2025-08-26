@@ -48,8 +48,7 @@ export const LocaleButton = styled.button<{ isActive: boolean }>`
 	border: 2px solid ${({ theme }) => theme.colors.primary};
 
 	&:hover:not(:disabled) {
-		background-color: ${({ theme, isActive }) =>
-			!isActive && "rgba(204, 0, 0, 0.1)"};
+		background-color: ${({ isActive }) => !isActive && "rgba(204, 0, 0, 0.1)"};
 		transform: translateY(-2px);
 	}
 `;

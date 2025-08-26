@@ -83,11 +83,17 @@ export const LoadingMessage = styled.p`
 	color: ${({ theme }) => theme.colors.darkGrey};
 `;
 
-export const InfoMessage = styled.p`
-	text-align: center;
-	color: ${({ theme }) => theme.colors.darkGrey};
-	font-size: ${({ theme }) => theme.fontSizes.medium};
-	margin-top: ${({ theme }) => theme.spacing.large};
+export const InfoMessage = styled.div`
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	grid-column: 1 / -1;
+
+	p {
+		text-align: center;
+		color: ${({ theme }) => theme.colors.darkGrey};
+		font-size: ${({ theme }) => theme.fontSizes.medium};
+	}
 `;
 
 export const LocaleSwitcherContainer = styled.div`
@@ -113,8 +119,7 @@ export const LocaleButton = styled.button<{ isActive: boolean }>`
 	border: 2px solid ${({ theme }) => theme.colors.primary};
 
 	&:hover:not(:disabled) {
-		background-color: ${({ theme, isActive }) =>
-			!isActive && "rgba(204, 0, 0, 0.1)"};
+		background-color: ${({ isActive }) => !isActive && "rgba(204, 0, 0, 0.1)"};
 		transform: translateY(-2px);
 	}
 `;

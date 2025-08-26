@@ -75,7 +75,9 @@ export default function HomePage() {
 						);
 					})
 				) : (
-					<InfoMessage>Nenhum Pokémon encontrado.</InfoMessage>
+					<InfoMessage>
+						<p>{i18n("home.not_found")}</p>
+					</InfoMessage>
 				)}
 			</PokemonGrid>
 			<PaginationControls>

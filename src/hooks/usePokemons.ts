@@ -1,52 +1,58 @@
-import { useState, useEffect, useMemo } from 'react';
-import { getPokemonList } from '../services/pokeapi';
-import { PokemonListItem } from '../models/pokemon';
+import { useState, useEffect, useMemo } from "react";
+import { getPokemonList } from "../services/pokeapi";
+import { PokemonListItem } from "../models/pokemon";
 
-export const usePokemons = (pageSize: number = 20, pageOffset: number = 0, searchTerm: string = '') => {
-  const [allPokemons, setAllPokemons] = useState<PokemonListItem[]>([]);
-  const [loading, setLoading] = useState<boolean>(true);
-  const [error, setError] = useState<string | null>(null);
+//Nesse hook, o filtro é pelo front-end, pois a API não dá endpoint de busca por nome
 
-  useEffect(() => {
-    const fetchAllPokemons = async () => {
-      try {
-        setLoading(true);
-        const data = await getPokemonList();
-        setAllPokemons(data.results);
-      } catch (err) {
-        setError('Failed to fetch all pokemons.');
-        console.error(err);
-      } finally {
-        setLoading(false);
-      }
-    };
+export const usePokemons = (
+	pageSize: number = 20,
+	pageOffset: number = 0,
+	searchTerm: string = ""
+) => {
+	const [allPokemons, setAllPokemons] = useState<PokemonListItem[]>([]);
+	const [loading, setLoading] = useState<boolean>(true);
+	const [error, setError] = useState<string | null>(null);
 
-    fetchAllPokemons();
-  }, []);
+	useEffect(() => {
+		const fetchAllPokemons = async () => {
+			try {
+				setLoading(true);
+				const data = await getPokemonList();
+				setAllPokemons(data.results);
+			} catch (err) {
+				setError("Failed to fetch all pokemons.");
+				console.error(err);
+			} finally {
+				setLoading(false);
+			}
+		};
 
-  const filteredAndPaginatedPokemons = useMemo(() => {
-    let currentPokemons = allPokemons;
+		fetchAllPokemons();
+	}, []);
 
-    if (searchTerm) {
-      currentPokemons = currentPokemons.filter(pokemon =>
-        pokemon.name.toLowerCase().includes(searchTerm.toLowerCase())
-      );
-    }
+	const filteredAndPaginatedPokemons = useMemo(() => {
+		let currentPokemons = allPokemons;
 
-    const startIndex = pageOffset;
-    const endIndex = startIndex + pageSize;
-    const paginatedPokemons = currentPokemons.slice(startIndex, endIndex);
+		if (searchTerm) {
+			currentPokemons = currentPokemons.filter((pokemon) =>
+				pokemon.name.toLowerCase().includes(searchTerm.toLowerCase())
+			);
+		}
 
-    return {
-      pokemons: paginatedPokemons,
-      totalCount: currentPokemons.length,
-    };
-  }, [allPokemons, searchTerm, pageSize, pageOffset]);
+		const startIndex = pageOffset;
+		const endIndex = startIndex + pageSize;
+		const paginatedPokemons = currentPokemons.slice(startIndex, endIndex);
 
-  return {
-    pokemons: filteredAndPaginatedPokemons.pokemons,
-    loading,
-    error,
-    totalCount: filteredAndPaginatedPokemons.totalCount,
-  };
+		return {
+			pokemons: paginatedPokemons,
+			totalCount: currentPokemons.length,
+		};
+	}, [allPokemons, searchTerm, pageSize, pageOffset]);
+
+	return {
+		pokemons: filteredAndPaginatedPokemons.pokemons,
+		loading,
+		error,
+		totalCount: filteredAndPaginatedPokemons.totalCount,
+	};
 };
