@@ -4,7 +4,8 @@ Este é um projeto de aplicação web construído com Next.js que consome a Poke
 
 ## Funcionalidades
 
-- \*\*
+- **Internacionalização:** i18n para usuários que sabem inglês ou português.
+- **Tema claro/escuro:** O usuário pode
 - **Listagem de Pokémons:** Exibe uma lista paginada de Pokémons com seus nomes e imagens.
 - **Detalhes do Pokémon:** Ao clicar em um Pokémon, exibe uma página de detalhes com nome, espécie e estatísticas.
 - **Busca com Debounce:** Permite buscar Pokémons por nome em toda a lista (não apenas na página atual) com um atraso para otimizar as requisições.
@@ -48,6 +49,13 @@ Certifique-se de ter as seguintes ferramentas instaladas:
     ```bash
     yarn install
     ```
+
+3. Crie o seguinte arquivo .env:
+```
+NEXT_PUBLIC_POKEAPI_BASE_URL=https://pokeapi.co/api/v2
+NEXT_PUBLIC_POKEMON_SPRITE_BASE_URL=https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/
+```
+
 
 ### Executando a Aplicação (Modo Desenvolvimento)
 
