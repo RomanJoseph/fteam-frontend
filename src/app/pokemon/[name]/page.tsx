@@ -10,18 +10,26 @@ import {
 	ErrorMessage,
 	LoadingMessage,
 	PokemonImage,
-	StatItem,
-	StatList,
 	Title,
+	DetailsGrid,
+	TypesContainer,
+	TypeBadge,
+	StatsContainer,
+	StatItem,
+	StatInfo,
+	StatBarBackground,
+	StatBarFill,
 } from "./style";
 
 export default function PokemonDetailPage() {
 	const params = useParams();
 	const pokemonName = params.name as string;
-	const { pokemon, loading, error } = usePokemonDetails(pokemonName);
+	// Agora pegamos primaryType do hook
+	const { pokemon, loading, error, primaryType } =
+		usePokemonDetails(pokemonName);
 
 	if (loading) {
-		return <LoadingMessage>Loading Pokemon details...</LoadingMessage>;
+		return <LoadingMessage>Carregando detalhes do Pokémon...</LoadingMessage>;
 	}
 
 	if (error) {
@@ -29,7 +37,7 @@ export default function PokemonDetailPage() {
 	}
 
 	if (!pokemon) {
-		return <ErrorMessage>Pokemon not found.</ErrorMessage>;
+		return <ErrorMessage>Pokémon não encontrado.</ErrorMessage>;
 	}
 
 	const imageUrl =
@@ -37,33 +45,49 @@ export default function PokemonDetailPage() {
 		pokemon.sprites.front_default;
 
 	return (
-		<Container>
-			<Title>{pokemon.name}</Title>
-			{imageUrl && <PokemonImage src={imageUrl} alt={pokemon.name} />}
-			<DetailItem>
-				<strong>ID:</strong> {pokemon.id}
-			</DetailItem>
-			<DetailItem>
-				<strong>Species:</strong> {pokemon.species.name}
-			</DetailItem>
-			<DetailItem>
-				<strong>Height:</strong> {pokemon.height / 10} m
-			</DetailItem>
-			<DetailItem>
-				<strong>Weight:</strong> {pokemon.weight / 10} kg
-			</DetailItem>
+		<Container pokemonType={primaryType}>
+			<Title>
+				#{String(pokemon.id).padStart(3, "0")} - {pokemon.name}
+			</Title>
 
-			<h2>Stats</h2>
-			<StatList>
+			<TypesContainer>
+				{pokemon.types.map((typeInfo) => (
+					<TypeBadge key={typeInfo.type.name} pokemonType={typeInfo.type.name}>
+						{typeInfo.type.name}
+					</TypeBadge>
+				))}
+			</TypesContainer>
+
+			{imageUrl && <PokemonImage src={imageUrl} alt={pokemon.name} />}
+
+			<DetailsGrid>
+				<DetailItem>
+					<strong>Height:</strong> {pokemon.height / 10} m
+				</DetailItem>
+				<DetailItem>
+					<strong>Weight:</strong> {pokemon.weight / 10} kg
+				</DetailItem>
+			</DetailsGrid>
+
+			<StatsContainer>
+				<h2>Base Stats</h2>
 				{pokemon.stats.map((statItem) => (
 					<StatItem key={statItem.stat.name}>
-						<span>{statItem.stat.name.replace("-", " ")}:</span>
-						<span>{statItem.base_stat}</span>
+						<StatInfo>
+							<span>{statItem.stat.name.replace("-", " ")}</span>
+							<strong>{statItem.base_stat}</strong>
+						</StatInfo>
+						<StatBarBackground>
+							<StatBarFill
+								statValue={statItem.base_stat}
+								pokemonType={primaryType}
+							/>
+						</StatBarBackground>
 					</StatItem>
 				))}
-			</StatList>
+			</StatsContainer>
 
-			<BackLink href="/">Back to List</BackLink>
+			<BackLink href="/">Voltar para a Lista</BackLink>
 		</Container>
 	);
 }

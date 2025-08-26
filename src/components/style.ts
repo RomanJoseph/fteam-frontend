@@ -2,28 +2,44 @@ import Link from "next/link";
 import styled from "styled-components";
 
 export const Card = styled(Link)`
+	background-color: ${({ theme }) => theme.colors.white};
+	border-radius: ${({ theme }) => theme.borderRadius};
+	box-shadow: ${({ theme }) => theme.shadows.small};
+	padding: ${({ theme }) => theme.spacing.medium};
+	text-align: center;
+	transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+	position: relative;
+	overflow: hidden;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	padding: 1rem;
-	border: 1px solid #ccc;
-	border-radius: 8px;
-	text-decoration: none;
-	color: inherit;
-	transition: transform 0.2s ease-in-out;
+	justify-content: center;
 
 	&:hover {
 		transform: translateY(-5px);
+		box-shadow: ${({ theme }) => theme.shadows.medium};
+	}
+
+	&::after {
+		content: "";
+		position: absolute;
+		bottom: 0;
+		left: 0;
+		right: 0;
+		height: 4px;
+		background-color: ${({ theme }) => theme.colors.primary};
 	}
 `;
 
 export const PokemonImage = styled.img`
-	width: 96px;
-	height: 96px;
-	margin-bottom: 0.5rem;
+	width: 120px;
+	height: 120px;
+	margin-bottom: ${({ theme }) => theme.spacing.medium};
 `;
 
 export const PokemonName = styled.h3`
-	margin: 0;
+	font-size: ${({ theme }) => theme.fontSizes.medium};
+	color: ${({ theme }) => theme.colors.darkGrey};
 	text-transform: capitalize;
+	margin: 0;
 `;

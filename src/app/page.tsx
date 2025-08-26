@@ -13,6 +13,7 @@ import {
 	PokemonGrid,
 	PaginationControls,
 	Button,
+	InfoMessage,
 } from "./style";
 
 const PAGE_SIZE = 20;
@@ -72,7 +73,7 @@ export default function HomePage() {
 						);
 					})
 				) : (
-					<p>No Pokemons found matching your search.</p>
+					<InfoMessage>Nenhum Pokémon encontrado.</InfoMessage>
 				)}
 			</PokemonGrid>
 			<PaginationControls>

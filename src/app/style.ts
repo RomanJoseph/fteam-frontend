@@ -1,65 +1,91 @@
 import { styled } from "styled-components";
 
-export const Container = styled.div`
-	padding: 2rem;
+export const Container = styled.main`
+	padding: ${({ theme }) => theme.spacing.large};
 	max-width: 1200px;
 	margin: 0 auto;
 `;
 
 export const Title = styled.h1`
 	text-align: center;
-	color: #333;
-	margin-bottom: 2rem;
+	color: ${({ theme }) => theme.colors.primary};
+	font-size: ${({ theme }) => theme.fontSizes.xlarge};
+	margin-bottom: ${({ theme }) => theme.spacing.large};
+	text-transform: uppercase;
+	letter-spacing: 2px;
 `;
 
 export const SearchInput = styled.input`
 	width: 100%;
-	padding: 0.8rem;
-	margin-bottom: 2rem;
-	border: 1px solid #ccc;
-	border-radius: 5px;
-	font-size: 1rem;
+	padding: 12px 16px;
+	margin-bottom: ${({ theme }) => theme.spacing.large};
+	border: 2px solid ${({ theme }) => theme.colors.lightGrey};
+	border-radius: ${({ theme }) => theme.borderRadius};
+	font-size: ${({ theme }) => theme.fontSizes.medium};
+	transition: border-color 0.2s;
+
+	&:focus {
+		outline: none;
+		border-color: ${({ theme }) => theme.colors.primary};
+	}
 `;
 
 export const PokemonGrid = styled.div`
 	display: grid;
-	grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-	gap: 1rem;
-	justify-content: center;
+	grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+	gap: ${({ theme }) => theme.spacing.large};
 `;
 
 export const PaginationControls = styled.div`
 	display: flex;
 	justify-content: center;
-	gap: 1rem;
-	margin-top: 2rem;
+	align-items: center;
+	gap: ${({ theme }) => theme.spacing.medium};
+	margin-top: ${({ theme }) => theme.spacing.large};
 `;
 
 export const Button = styled.button`
-	padding: 0.8rem 1.5rem;
-	background-color: #0070f3;
-	color: white;
+	padding: 10px 20px;
+	background-color: ${({ theme }) => theme.colors.primary};
+	color: ${({ theme }) => theme.colors.white};
 	border: none;
-	border-radius: 5px;
+	border-radius: ${({ theme }) => theme.borderRadius};
 	cursor: pointer;
-	font-size: 1rem;
-	transition: background-color 0.2s ease-in-out;
+	font-size: ${({ theme }) => theme.fontSizes.medium};
+	font-weight: bold;
+	transition: background-color 0.2s ease-in-out, transform 0.1s ease;
 
 	&:disabled {
-		background-color: #cccccc;
+		background-color: ${({ theme }) => theme.colors.lightGrey};
+		color: ${({ theme }) => theme.colors.darkGrey};
 		cursor: not-allowed;
 	}
 
 	&:hover:not(:disabled) {
-		background-color: #005bb5;
+		background-color: #a80000;
+		transform: scale(1.05);
+	}
+
+	&:active:not(:disabled) {
+		transform: scale(0.95);
 	}
 `;
 
 export const ErrorMessage = styled.p`
-	color: red;
+	color: ${({ theme }) => theme.colors.primary};
 	text-align: center;
+	font-size: ${({ theme }) => theme.fontSizes.large};
 `;
 
 export const LoadingMessage = styled.p`
 	text-align: center;
+	font-size: ${({ theme }) => theme.fontSizes.large};
+	color: ${({ theme }) => theme.colors.darkGrey};
+`;
+
+export const InfoMessage = styled.p`
+	text-align: center;
+	color: ${({ theme }) => theme.colors.darkGrey};
+	font-size: ${({ theme }) => theme.fontSizes.medium};
+	margin-top: ${({ theme }) => theme.spacing.large};
 `;
