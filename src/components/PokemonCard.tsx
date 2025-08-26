@@ -2,6 +2,7 @@
 
 import React from "react";
 import { Card, PokemonImage, PokemonName } from "./style";
+import { useCurrentLocale } from "@/i18n/client";
 
 interface PokemonCardProps {
 	name: string;
@@ -9,8 +10,10 @@ interface PokemonCardProps {
 }
 
 const PokemonCard: React.FC<PokemonCardProps> = ({ name, imageUrl }) => {
+	const currentLocale = useCurrentLocale();
+
 	return (
-		<Card href={`/pokemon/${name}`}>
+		<Card href={`${currentLocale}/pokemon/${name}`}>
 			<PokemonImage src={imageUrl} alt={name} />
 			<PokemonName>{name}</PokemonName>
 		</Card>

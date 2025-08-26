@@ -1,17 +1,7 @@
-const theme = {
-	colors: {
-		primary: "#CC0000",
-		secondary: "#3B4CCA",
-		accent: "#FFDE00",
-		background: "#F0F0F0",
-		text: "#333333",
-		white: "#FFFFFF",
-		lightGrey: "#E0E0E0",
-		darkGrey: "#555555",
-	},
+const baseTheme = {
 	fonts: {
-		body: "Roboto, sans-serif",
-		heading: "Poppins, sans-serif",
+		body: "var(--font-roboto), sans-serif",
+		heading: "var(--font-poppins), sans-serif",
 	},
 	fontSizes: {
 		small: "0.8rem",
@@ -51,4 +41,32 @@ const theme = {
 	},
 };
 
-export default theme;
+export const lightTheme = {
+	...baseTheme,
+	colors: {
+		primary: "#CC0000",
+		secondary: "#D2B48C",
+		accent: "#FFDE00",
+		background: "#F0F0F0",
+		surface: "#FFFFFF",
+		text: "#333333",
+		white: "#FFFFFF",
+		lightGrey: "#E0E0E0",
+		darkGrey: "#555555",
+	},
+};
+
+export const darkTheme = {
+	...baseTheme,
+	colors: {
+		primary: "#FF6B6B",
+		secondary: "#D2B48C",
+		accent: "#FFDE00",
+		background: "#121212",
+		surface: "#1E1E1E",
+		text: "#E0E0E0",
+		white: "#FFFFFF",
+		lightGrey: "#333333",
+		darkGrey: "#A0A0A0",
+	},
+};

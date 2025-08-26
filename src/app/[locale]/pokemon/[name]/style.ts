@@ -1,4 +1,3 @@
-import { Theme } from "@/styled";
 import Link from "next/link";
 import styled from "styled-components";
 
@@ -6,12 +5,14 @@ export const Container = styled.div<{ pokemonType: string }>`
 	padding: ${({ theme }) => theme.spacing.large};
 	max-width: 600px;
 	margin: 2rem auto;
-	background-color: ${({ theme }) => theme.colors.white};
+	background-color: ${({ theme }) =>
+		theme.colors.surface}; /* <-- Alterado de 'white' para 'surface' */
 	border-radius: ${({ theme }) => theme.borderRadius};
 	box-shadow: ${({ theme }) => theme.shadows.medium};
 	border-top: 10px solid
 		${({ theme, pokemonType }) =>
-			(pokemonType as keyof Theme["typeColors"]) || theme.colors.darkGrey};
+			theme.typeColors[pokemonType as keyof typeof theme.typeColors] ||
+			theme.colors.darkGrey};
 	text-align: center;
 `;
 
@@ -33,7 +34,7 @@ export const PokemonImage = styled.img`
 
 export const DetailsGrid = styled.div`
 	display: grid;
-	grid-template-columns: repeat(2, 1fr);
+	grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
 	gap: ${({ theme }) => theme.spacing.medium};
 	margin: ${({ theme }) => theme.spacing.large} 0;
 	text-align: left;
@@ -45,8 +46,10 @@ export const DetailItem = styled.div`
 	padding: ${({ theme }) => theme.spacing.small}
 		${({ theme }) => theme.spacing.medium};
 	border-radius: ${({ theme }) => theme.borderRadius};
+
 	strong {
-		color: ${({ theme }) => theme.colors.darkGrey};
+		color: ${({ theme }) => theme.colors.primary};
+		margin-right: 8px;
 	}
 `;
 
@@ -61,11 +64,12 @@ export const TypeBadge = styled.span<{ pokemonType: string }>`
 	padding: 5px 15px;
 	border-radius: 15px;
 	background-color: ${({ theme, pokemonType }) =>
-		theme.typeColors[pokemonType as keyof Theme["typeColors"]] ||
+		theme.typeColors[pokemonType as keyof typeof theme.typeColors] ||
 		theme.colors.darkGrey};
 	color: ${({ theme }) => theme.colors.white};
 	text-transform: capitalize;
 	font-weight: bold;
+	text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
 `;
 
 export const StatsContainer = styled.div`
@@ -75,6 +79,7 @@ export const StatsContainer = styled.div`
 	h2 {
 		text-align: center;
 		margin-bottom: ${({ theme }) => theme.spacing.medium};
+		color: ${({ theme }) => theme.colors.text};
 	}
 `;
 
@@ -87,6 +92,7 @@ export const StatInfo = styled.div`
 	justify-content: space-between;
 	margin-bottom: 5px;
 	text-transform: capitalize;
+	color: ${({ theme }) => theme.colors.text};
 `;
 
 export const StatBarBackground = styled.div`
@@ -104,7 +110,7 @@ export const StatBarFill = styled.div<{
 	height: 100%;
 	width: ${({ statValue }) => (statValue / 255) * 100}%;
 	background-color: ${({ theme, pokemonType }) =>
-		theme.typeColors[pokemonType as keyof Theme["typeColors"]] ||
+		theme.typeColors[pokemonType as keyof typeof theme.typeColors] ||
 		theme.colors.primary};
 	border-radius: 5px;
 	transition: width 0.5s ease-in-out;
@@ -114,7 +120,7 @@ export const BackLink = styled(Link)`
 	display: inline-block;
 	margin-top: ${({ theme }) => theme.spacing.large};
 	padding: 10px 20px;
-	background-color: ${({ theme }) => theme.colors.secondary};
+	background-color: ${({ theme }) => theme.colors.primary};
 	color: ${({ theme }) => theme.colors.white};
 	text-decoration: none;
 	border-radius: ${({ theme }) => theme.borderRadius};
@@ -122,7 +128,7 @@ export const BackLink = styled(Link)`
 	font-weight: bold;
 
 	&:hover {
-		background-color: #2a3d99; // Um azul mais escuro
+		background-color: ${({ theme }) => theme.colors.secondary};
 		transform: scale(1.05);
 	}
 `;
@@ -130,8 +136,11 @@ export const BackLink = styled(Link)`
 export const ErrorMessage = styled.p`
 	color: ${({ theme }) => theme.colors.primary};
 	text-align: center;
+	font-size: ${({ theme }) => theme.fontSizes.large};
 `;
 
 export const LoadingMessage = styled.p`
 	text-align: center;
+	font-size: ${({ theme }) => theme.fontSizes.large};
+	color: ${({ theme }) => theme.colors.text};
 `;

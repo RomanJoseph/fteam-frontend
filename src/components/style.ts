@@ -2,7 +2,7 @@ import Link from "next/link";
 import styled from "styled-components";
 
 export const Card = styled(Link)`
-	background-color: ${({ theme }) => theme.colors.white};
+	background-color: ${({ theme }) => theme.colors.surface};
 	border-radius: ${({ theme }) => theme.borderRadius};
 	box-shadow: ${({ theme }) => theme.shadows.small};
 	padding: ${({ theme }) => theme.spacing.medium};
@@ -39,7 +39,7 @@ export const PokemonImage = styled.img`
 
 export const PokemonName = styled.h3`
 	font-size: ${({ theme }) => theme.fontSizes.medium};
-	color: ${({ theme }) => theme.colors.darkGrey};
+	color: ${({ theme }) => theme.colors.text};
 	text-transform: capitalize;
 	margin: 0;
 `;

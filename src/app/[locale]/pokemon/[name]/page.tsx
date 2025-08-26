@@ -2,7 +2,6 @@
 
 import React from "react";
 import { useParams } from "next/navigation";
-import { usePokemonDetails } from "../../../hooks/usePokemonDetails";
 import {
 	BackLink,
 	Container,
@@ -20,16 +19,18 @@ import {
 	StatBarBackground,
 	StatBarFill,
 } from "./style";
+import { usePokemonDetails } from "@/hooks/usePokemonDetails";
+import { useI18n } from "@/i18n/client";
 
 export default function PokemonDetailPage() {
 	const params = useParams();
 	const pokemonName = params.name as string;
-	// Agora pegamos primaryType do hook
+	const i18n = useI18n();
 	const { pokemon, loading, error, primaryType } =
 		usePokemonDetails(pokemonName);
 
 	if (loading) {
-		return <LoadingMessage>Carregando detalhes do Pokémon...</LoadingMessage>;
+		return <LoadingMessage>{i18n("pokemon.loading")}</LoadingMessage>;
 	}
 
 	if (error) {
@@ -37,7 +38,7 @@ export default function PokemonDetailPage() {
 	}
 
 	if (!pokemon) {
-		return <ErrorMessage>Pokémon não encontrado.</ErrorMessage>;
+		return <ErrorMessage>{i18n("pokemon.error")}</ErrorMessage>;
 	}
 
 	const imageUrl =
@@ -62,15 +63,15 @@ export default function PokemonDetailPage() {
 
 			<DetailsGrid>
 				<DetailItem>
-					<strong>Height:</strong> {pokemon.height / 10} m
+					<strong>{i18n("pokemon.height")}:</strong> {pokemon.height / 10} m
 				</DetailItem>
 				<DetailItem>
-					<strong>Weight:</strong> {pokemon.weight / 10} kg
+					<strong>{i18n("pokemon.weight")}:</strong> {pokemon.weight / 10} kg
 				</DetailItem>
 			</DetailsGrid>
 
 			<StatsContainer>
-				<h2>Base Stats</h2>
+				<h2>{i18n("pokemon.base_stats")}</h2>
 				{pokemon.stats.map((statItem) => (
 					<StatItem key={statItem.stat.name}>
 						<StatInfo>
@@ -87,7 +88,7 @@ export default function PokemonDetailPage() {
 				))}
 			</StatsContainer>
 
-			<BackLink href="/">Voltar para a Lista</BackLink>
+			<BackLink href="/">{i18n("pokemon.back_to_list")}</BackLink>
 		</Container>
 	);
 }

@@ -89,3 +89,32 @@ export const InfoMessage = styled.p`
 	font-size: ${({ theme }) => theme.fontSizes.medium};
 	margin-top: ${({ theme }) => theme.spacing.large};
 `;
+
+export const LocaleSwitcherContainer = styled.div`
+	position: absolute;
+	top: ${({ theme }) => theme.spacing.medium};
+	right: ${({ theme }) => theme.spacing.large};
+	display: flex;
+	gap: ${({ theme }) => theme.spacing.small};
+`;
+
+export const LocaleButton = styled.button<{ isActive: boolean }>`
+	padding: 8px 12px;
+	border-radius: ${({ theme }) => theme.borderRadius};
+	cursor: pointer;
+	font-weight: bold;
+	font-size: 0.9rem;
+	transition: all 0.2s ease-in-out;
+
+	background-color: ${({ theme, isActive }) =>
+		isActive ? theme.colors.primary : "transparent"};
+	color: ${({ theme, isActive }) =>
+		isActive ? theme.colors.white : theme.colors.primary};
+	border: 2px solid ${({ theme }) => theme.colors.primary};
+
+	&:hover:not(:disabled) {
+		background-color: ${({ theme, isActive }) =>
+			!isActive && "rgba(204, 0, 0, 0.1)"};
+		transform: translateY(-2px);
+	}
+`;

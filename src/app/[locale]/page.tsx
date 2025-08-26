@@ -1,9 +1,9 @@
 "use client";
 
 import React, { useState } from "react";
-import { usePokemons } from "../hooks/usePokemons";
-import { useDebounce } from "../hooks/useDebounce";
-import PokemonCard from "../components/PokemonCard";
+import { usePokemons } from "../../hooks/usePokemons";
+import { useDebounce } from "../../hooks/useDebounce";
+import PokemonCard from "../../components/PokemonCard";
 import {
 	LoadingMessage,
 	ErrorMessage,
@@ -15,6 +15,7 @@ import {
 	Button,
 	InfoMessage,
 } from "./style";
+import { useI18n } from "../../i18n/client";
 
 const PAGE_SIZE = 20;
 
@@ -22,6 +23,7 @@ export default function HomePage() {
 	const [offset, setOffset] = useState(0);
 	const [searchTerm, setSearchTerm] = useState("");
 	const debouncedSearchTerm = useDebounce(searchTerm, 500);
+	const i18n = useI18n();
 
 	const { pokemons, loading, error, totalCount } = usePokemons(
 		PAGE_SIZE,
@@ -52,10 +54,10 @@ export default function HomePage() {
 
 	return (
 		<Container>
-			<Title>Pokémon List</Title>
+			<Title>{i18n("home.title")}</Title>
 			<SearchInput
 				type="text"
-				placeholder="Search Pokemon by name..."
+				placeholder={i18n("home.search")}
 				value={searchTerm}
 				onChange={handleSearchChange}
 			/>
