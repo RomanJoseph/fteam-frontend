@@ -65,7 +65,7 @@ export default function HomePage() {
 				{pokemons.length > 0 ? (
 					pokemons.map((pokemon) => {
 						const id = pokemon.url.split("/").filter(Boolean).pop();
-						const imageUrl = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${id}.png`;
+						const imageUrl = `${process.env.NEXT_PUBLIC_POKEMON_SPRITE_BASE_URL}${id}.png`;
 						return (
 							<PokemonCard
 								key={pokemon.name}

@@ -1,37 +1,106 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Pokémon App - Teste Frontend FTeam
 
-## Getting Started
+Este é um projeto de aplicação web construído com Next.js que consome a PokeAPI para exibir uma lista de Pokémons, seus detalhes e permite a busca e navegação paginada.
 
-First, run the development server:
+## Funcionalidades
+
+- \*\*
+- **Listagem de Pokémons:** Exibe uma lista paginada de Pokémons com seus nomes e imagens.
+- **Detalhes do Pokémon:** Ao clicar em um Pokémon, exibe uma página de detalhes com nome, espécie e estatísticas.
+- **Busca com Debounce:** Permite buscar Pokémons por nome em toda a lista (não apenas na página atual) com um atraso para otimizar as requisições.
+- **Paginação:** Navegação entre as páginas da lista de Pokémons.
+
+## Tecnologias Utilizadas
+
+- **Next.js:** Framework React para aplicações web.
+- **React:** Biblioteca JavaScript para construção de interfaces de usuário.
+- **TypeScript:** Superset de JavaScript que adiciona tipagem estática.
+- **Styled-Components:** Biblioteca para estilização de componentes React.
+- **Hooks Personalizados:** Para encapsular a lógica de requisições à API e debounce.
+- **Docker & Docker Compose:** Para conteinerização e orquestração do ambiente de desenvolvimento e produção.
+
+## Arquitetura
+
+O projeto usa uma adaptação do padrão arquitetural **MVVM (Model-View-ViewModel)** para o React:
+
+- **Model:** Representado pelos arquivos em `src/models` (definições de tipos de dados) e `src/services/pokeapi.ts` (lógica de acesso à PokeAPI).
+- **View:** Os componentes React em `src/app/page.tsx`, `src/app/pokemon/[name]/page.tsx` e `src/components/PokemonCard.tsx` são responsáveis pela interface do usuário.
+- **ViewModel:** Os hooks personalizados em `src/hooks` (`usePokemons.ts`, `usePokemonDetails.ts`, `useDebounce.ts`) atuam como ViewModels, fornecendo dados e lógica para as Views.
+
+## Configuração e Execução Local
+
+### Pré-requisitos
+
+Certifique-se de ter as seguintes ferramentas instaladas:
+
+- [Node.js](https://nodejs.org/en/) (versão 22 ou superior)
+- [Yarn](https://yarnpkg.com/) (gerenciador de pacotes)
+- [Docker](https://www.docker.com/get-started) & [Docker Compose](https://docs.docker.com/compose/install/)
+
+### Instalação
+
+1.  Clone o repositório:
+    ```bash
+    git clone <URL_DO_REPOSITORIO>
+    cd poke
+    ```
+2.  Instale as dependências do projeto:
+    ```bash
+    yarn install
+    ```
+
+### Executando a Aplicação (Modo Desenvolvimento)
+
+Para iniciar o servidor de desenvolvimento:
 
 ```bash
-npm run dev
-# or
 yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+A aplicação estará disponível em `http://localhost:3000`.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Executando a Aplicação (Com Docker Compose)
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Para construir a imagem Docker e subir o contêiner:
 
-## Learn More
+```bash
+docker compose up --build -d
+```
 
-To learn more about Next.js, take a look at the following resources:
+A aplicação estará disponível em `http://localhost:3000`.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Estrutura do Projeto
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```
+poke/
+├── src/
+│   ├── app/                  # Páginas do Next.js App Router
+│   │   ├── pokemon/[name]/   # Página de detalhes do Pokémon
+│   │   │   └── page.tsx
+│   │   │   └── style.ts
+│   │   ├── page.tsx          # Página principal (listagem de Pokémons)
+│   │   └── style.ts
+│   ├── components/           # Componentes React reutilizáveis
+│   │   ├── PokemonCard.tsx
+│   │   └── style.ts
+│   ├── hooks/                # Hooks personalizados (Viewmodels)
+│   │   ├── useDebounce.ts
+│   │   ├── usePokemonDetails.ts
+│   │   └── usePokemons.ts
+│   ├── lib/                  # Utilitários (ex: StyledComponentsRegistry)
+│   │   └── registry.tsx
+│   ├── models/               # Definições de tipos de dados
+│   │   └── pokemon.ts
+│   └── services/             # Lógica de requisições à API
+│       └── pokeapi.ts
+├── Dockerfile                # Definição da imagem Docker
+├── docker-compose.yml        # Orquestração de contêineres Docker
+├── next.config.js            # Configuração do Next.js
+├── package.json
+├── yarn.lock
+└── README.md                 # Este arquivo
+```
 
-## Deploy on Vercel
+## Referência da API
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
-# fteam-frontend
+Este projeto utiliza a [PokeAPI](https://pokeapi.co/docs/v2).

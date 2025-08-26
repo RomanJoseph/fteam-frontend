@@ -1,6 +1,6 @@
 import { PokemonListResponse, PokemonDetail } from '../models/pokemon';
 
-const BASE_URL = 'https://pokeapi.co/api/v2';
+const BASE_URL = process.env.NEXT_PUBLIC_POKEAPI_BASE_URL;
 
 export const getPokemonList = async (limit: number = 10000, offset: number = 0): Promise<PokemonListResponse> => {
   const response = await fetch(`${BASE_URL}/pokemon?limit=${limit}&offset=${offset}`);
